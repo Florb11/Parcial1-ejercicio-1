@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Veterinaria {
+public class Turno {
     //Atributos
     private String nombre;
     private int edad;
@@ -12,11 +12,15 @@ public class Veterinaria {
     private LocalDate fechaTurno;
     private boolean tratamiento;
     private boolean estadoDeSalud;
+    private String detallesConsulta;
+
+
+
 
 
     //Constructor con todo
 
-    public Veterinaria (String nombre, int edad,double peso,String dueno,String veterinario,LocalDate fechaTurno,boolean tratamiento,boolean estadoDeSalud){
+    public Turno(String nombre, int edad, double peso, String dueno, String veterinario, LocalDate fechaTurno, boolean tratamiento, boolean estadoDeSalud,String detallesConsulta){
         this.nombre=nombre;
         this.edad=edad;
         this.peso=peso;
@@ -25,16 +29,26 @@ public class Veterinaria {
         this.fechaTurno=fechaTurno;
         this.tratamiento=tratamiento;
         this.estadoDeSalud=estadoDeSalud;
-    }
-    //Constructor con informacion basica
+        this.detallesConsulta=detallesConsulta;
 
-    public Veterinaria (String nombre,String dueno){
-        this.nombre=nombre;
-        this.dueno=dueno;
-        this.fechaTurno=LocalDate.now();
-        this.tratamiento=false;
-        this.estadoDeSalud =false;
     }
+    //Constructor con tratamiento salud y detalles
+    public Turno(String nombre, int edad, double peso, String dueno, String veterinario, LocalDate fechaTurno) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.peso = peso;
+        this.dueno = dueno;
+        this.veterinario = veterinario;
+        this.fechaTurno = fechaTurno;
+        this.tratamiento = false;
+        this.estadoDeSalud = true;
+        this.detallesConsulta="No asignado";
+    }
+
+
+
+
+
 
     //get y set
 
@@ -71,6 +85,10 @@ public class Veterinaria {
         return estadoDeSalud;
     }
 
+    public String getDetallesConsulta() {
+        return detallesConsulta;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -101,42 +119,50 @@ public class Veterinaria {
         this.estadoDeSalud = estadoDeSalud;
     }
 
+    public void setDetallesConsulta(String detallesConsulta) {
+        this.detallesConsulta = detallesConsulta;
+    }
     //metodos
 
+    // metodo para evaluar la salud del animal
 
     public void realizarEvaluacion(){
-        JOptionPane.showMessageDialog(null,"Comenzando la evaluacion");
-
-        if(this.estadoDeSalud){
-            JOptionPane.showMessageDialog(null,"El animal esta en buen estado de salud y no requiere tratamiento");
-            this.tratamiento=false;
-        }else{
-            JOptionPane.showMessageDialog(null,"El animal necesita tratamiento");
-            this.tratamiento=true;
-
+        JOptionPane.showMessageDialog(null, "Comenzando la consulta");
+        int salud = JOptionPane.showConfirmDialog(null, "¿El animal esta en buen estado de salud?");
+        //aca no me salio lo de la  expresion ternaria
+        if (salud == JOptionPane.YES_OPTION) {
+            this.estadoDeSalud = true;
+            this.tratamiento = false;
+            JOptionPane.showMessageDialog(null, "El animal esta en buen estado de salud. No requiere tratamiento.");
+        } else {
+            this.estadoDeSalud = false;
+            this.tratamiento = true;
+            JOptionPane.showMessageDialog(null, "El animal necesita tratamiento :(");
         }
-        int respuesta = JOptionPane.showConfirmDialog(null, "¿Queres agendar un turno?", "Programar Turno", JOptionPane.YES_NO_OPTION);
-
-        if (respuesta == JOptionPane.YES_OPTION) {
-            programarTurno();
+        registrarDetallesConsulta();
+        if (this.tratamiento) {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Quienes agendar un turno para el tratamiento?", "Turno", JOptionPane.YES_NO_OPTION);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                programarTurno();
+            }
         }
-
     }
-
     public void aplicarTratamiento(){
         if(this.tratamiento){
             this.estadoDeSalud=true;
             this.tratamiento=false;
             JOptionPane.showMessageDialog(null,"El tratamiento fue efectivo el animal ya no necesita tratamiento");
         }else{
-            JOptionPane.showMessageDialog(null,"el animal esta bien");
+            JOptionPane.showMessageDialog(null,"el animal esta bien, no necesita tratamiento :D");
         }
     }
     public void programarTurno(){
         String[] opciones = {"Agendar de aca a 1 semana", "Agendar fecha personalizada", "Cancelar"};
-        int opcion = JOptionPane.showOptionDialog(null, "¿Para cuando queres agendar el turno?", "Agendar Turno",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
+        int opcion = JOptionPane.showOptionDialog(null,
+                "¿Para cuando queres agendar el turno?",
+                "Agendar Turno",
+                0,
+                0,
                 null,
                 opciones,
                 opciones[0]);
@@ -162,7 +188,6 @@ public class Veterinaria {
                     }
                 } while (!fechaValida);
                 break;
-
             case 2:
                 JOptionPane.showMessageDialog(null, "No se agendo ningun turno.");
                 break;
@@ -171,7 +196,6 @@ public class Veterinaria {
                 break;
         }
     }
-
     public void verificarTurno(){
         if(LocalDate.now().isAfter(this.fechaTurno)){
             JOptionPane.showMessageDialog(null,"La fecha del turno ya paso, necesita repogramar");
@@ -180,16 +204,9 @@ public class Veterinaria {
             JOptionPane.showMessageDialog(null,"Faltan: "+tiempoRestante.getDays()+" dias para el turno");
         }
     }
-    public String validarCaracteres(String mensaej) {
-        String palabra = "";
-        while (palabra.equals("")) {
-            palabra = JOptionPane.showInputDialog(mensaej);
-        }
-        return palabra;
-    }
     public int validarNumeros(String mensaje) {
         boolean flag ;
-        String num ="";
+        String num = "";
         do {
             flag =true;
             num = JOptionPane.showInputDialog(mensaje);
@@ -211,7 +228,31 @@ public class Veterinaria {
         return fechaIngresada.isAfter(LocalDate.now());
 
     }
+    public void registrarDetallesConsulta(){
+        String detallesConsulta = JOptionPane.showInputDialog(null,"Ingrese los detalles de la consulta");
+        String pesoIngresado = JOptionPane.showInputDialog(null, "Ingrese el peso actual del animal:");
+        double pesoActual = Double.parseDouble(pesoIngresado);
+        this.peso = pesoActual;
 
+        int vacunado = JOptionPane.showConfirmDialog( null, "¿El animal esta vacunado?");
+        String Vacunacion = (vacunado == JOptionPane.YES_OPTION) ?"Si":"No"; // expresion ternaria que explico el profe :D me salio
+
+        int cortarUnias = JOptionPane.showConfirmDialog(null, "¿El animal necesita cortarse las uñas?");
+        String corteUnias = (cortarUnias == JOptionPane.YES_OPTION) ?"Si":"No";
+
+        this.detallesConsulta = "Detalles generales: "+detallesConsulta+
+                "\nPeso actual: "+ this.peso+" kg"+
+                "\nVacunado: "+vacunado+
+                "\n¿Necesita cortarse las uñas?: "+cortarUnias;
+
+        JOptionPane.showMessageDialog(null, "Detalles de la consulta registrados .");
+        
+
+    }
+    public void mostrarDetallesConsulta(){
+        JOptionPane.showMessageDialog(null, "Detalles de las consultas:\n" + this.detallesConsulta);
+
+    }
 
 
 
