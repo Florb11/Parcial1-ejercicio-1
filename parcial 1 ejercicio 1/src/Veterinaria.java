@@ -98,4 +98,20 @@ public class Veterinaria {
     public void setEstadoDeSalud(boolean estadoDeSalud) {
         this.estadoDeSalud = estadoDeSalud;
     }
+
+    //metodos
+
+    // metodo para el estado de salud
+
+    public String mostrarEstado (boolean estado){
+        if(estado){
+            return "No necesita tratamiento";
+        }
+        return "El animal necesita tratamiento";
+    }
+
+
+
+
+
 }
