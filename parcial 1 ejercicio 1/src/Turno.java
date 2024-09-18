@@ -15,12 +15,10 @@ public class Turno {
     private String detallesConsulta;
 
 
+    //Constructores
 
-
-
-    //Constructor con todo
-
-    public Turno(String nombre, int edad, double peso, String dueno, String veterinario, LocalDate fechaTurno, boolean tratamiento, boolean estadoDeSalud,String detallesConsulta){
+    public Turno(String nombre, int edad, double peso, String dueno, String veterinario,
+                 LocalDate fechaTurno, boolean tratamiento, boolean estadoDeSalud,String detallesConsulta){
         this.nombre=nombre;
         this.edad=edad;
         this.peso=peso;
@@ -32,23 +30,19 @@ public class Turno {
         this.detallesConsulta=detallesConsulta;
 
     }
-    //Constructor con tratamiento salud y detalles
-    public Turno(String nombre, int edad, double peso, String dueno, String veterinario, LocalDate fechaTurno) {
+
+    public Turno(String nombre, int edad, double peso,
+                 String dueno, String veterinario, LocalDate fechaTurno) {
         this.nombre = nombre;
         this.edad = edad;
         this.peso = peso;
         this.dueno = dueno;
         this.veterinario = veterinario;
-        this.fechaTurno = fechaTurno;
-        this.tratamiento = false;
-        this.estadoDeSalud = true;
-        this.detallesConsulta="No asignado";
+        this.fechaTurno = fechaTurno; // aca no sabia si ponerlo en null o dejarlo asi
+        this.tratamiento = false; // valor "preconsulta"
+        this.estadoDeSalud = true; // valor "preconsulta"
+        this.detallesConsulta="No asignado"; // valor "preconsulta"
     }
-
-
-
-
-
 
     //get y set
 
@@ -141,7 +135,7 @@ public class Turno {
         }
         registrarDetallesConsulta();
         if (this.tratamiento) {
-            int respuesta = JOptionPane.showConfirmDialog(null, "¿Quienes agendar un turno para el tratamiento?", "Turno", JOptionPane.YES_NO_OPTION);
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Quienes agendar un turno para el tratamiento?");
             if (respuesta == JOptionPane.YES_OPTION) {
                 programarTurno();
             }
@@ -197,13 +191,18 @@ public class Turno {
         }
     }
     public void verificarTurno(){
-        if(LocalDate.now().isAfter(this.fechaTurno)){
-            JOptionPane.showMessageDialog(null,"La fecha del turno ya paso, necesita repogramar");
-        }else{
-            Period tiempoRestante = Period.between(LocalDate.now(),this.fechaTurno);
-            JOptionPane.showMessageDialog(null,"Faltan: "+tiempoRestante.getDays()+" dias para el turno");
+        if (this.fechaTurno == null) { //  preguntar despues si pasar el null en el contstructor estaria bien
+            JOptionPane.showMessageDialog(null, "No hay un turno aun.");
+        } else {
+            if (LocalDate.now().isAfter(this.fechaTurno)) {
+                JOptionPane.showMessageDialog(null, "La fecha del turno ya pasó.");
+            } else {
+                Period tiempoRestante = Period.between(LocalDate.now(), this.fechaTurno);
+                JOptionPane.showMessageDialog(null, "Faltan " + tiempoRestante.getDays() + " días para el turno.");
+            }
         }
     }
+
     public int validarNumeros(String mensaje) {
         boolean flag ;
         String num = "";
@@ -235,18 +234,18 @@ public class Turno {
         this.peso = pesoActual;
 
         int vacunado = JOptionPane.showConfirmDialog( null, "¿El animal esta vacunado?");
-        String Vacunacion = (vacunado == JOptionPane.YES_OPTION) ?"Si":"No"; // expresion ternaria que explico el profe :D me salio
+        String vacunacion = (vacunado == JOptionPane.YES_OPTION) ?"Si":"No"; // expresion ternaria que explico el profe
 
         int cortarUnias = JOptionPane.showConfirmDialog(null, "¿El animal necesita cortarse las uñas?");
         String corteUnias = (cortarUnias == JOptionPane.YES_OPTION) ?"Si":"No";
 
         this.detallesConsulta = "Detalles generales: "+detallesConsulta+
                 "\nPeso actual: "+ this.peso+" kg"+
-                "\nVacunado: "+vacunado+
-                "\n¿Necesita cortarse las uñas?: "+cortarUnias;
+                "\nVacunado: "+vacunacion+
+                "\n¿Necesita cortarse las uñas?: "+corteUnias;
 
         JOptionPane.showMessageDialog(null, "Detalles de la consulta registrados .");
-        
+
 
     }
     public void mostrarDetallesConsulta(){
@@ -254,11 +253,9 @@ public class Turno {
 
     }
 
-
-
     @Override
     public String toString() {
-        return "Veterinaria{" +
+        return "Turno{" +
                 "nombre='" + nombre + '\'' +
                 ", edad=" + edad +
                 ", peso=" + peso +

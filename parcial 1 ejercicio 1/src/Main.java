@@ -2,15 +2,20 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
+
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del animal:");
         String dueno = JOptionPane.showInputDialog("Ingrese el nombre del dueño:");
         int edad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del animal:"));
         double peso = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el peso del animal:"));
         String veterinario = JOptionPane.showInputDialog("Ingrese el nombre del veterinario:");
+
         //objeto
-        Turno turno1 = new Turno(nombre, edad, peso, dueno, veterinario, null);
+
+        Turno turno1 = new Turno(nombre, edad, peso, dueno, veterinario,null);
+
         //menu
-        String[] opciones = {"Ver estado del animal", "Realizar evaluacion", "Programar turno", "Mejorar salud", "Verificar turno", "Mostrar detalles del a consulta","Salir" };
+
+        String[]opciones = {"Ver estado del animal", "Realizar evaluacion", "Programar turno", "Mejorar salud", "Verificar turno", "Mostrar detalles del a consulta","Salir" };
         int opcion;
 
         do {
