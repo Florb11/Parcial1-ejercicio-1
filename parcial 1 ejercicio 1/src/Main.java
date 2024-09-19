@@ -13,7 +13,7 @@ public class Main {
 
         //objeto
 
-        Turno turno1 = new Turno(nombre, edad, peso, dueno, veterinario,null);
+        Turno turno1 = new Turno(nombre, edad, peso, dueno, veterinario);
 
         //menu
 

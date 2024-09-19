@@ -32,13 +32,13 @@ public class Turno {
     }
 
     public Turno(String nombre, int edad, double peso,
-                 String dueno, String veterinario, LocalDate fechaTurno) {
+                 String dueno, String veterinario) {
         this.nombre = nombre;
         this.edad = edad;
         this.peso = peso;
         this.dueno = dueno;
         this.veterinario = veterinario;
-        this.fechaTurno = fechaTurno; // aca no sabia si ponerlo en null o dejarlo asi
+        this.fechaTurno = null; // aca no sabia si ponerlo en null o dejarlo asi
         this.tratamiento = false; // valor "preconsulta"
         this.estadoDeSalud = true; // valor "preconsulta"
         this.detallesConsulta="No asignado"; // valor "preconsulta"
