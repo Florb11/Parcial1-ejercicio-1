@@ -24,7 +24,7 @@ public class Turno {
         this.peso=peso;
         this.dueno=dueno;
         this.veterinario=veterinario;
-        this.fechaTurno=fechaTurno;
+        this.fechaTurno=LocalDate.now();
         this.tratamiento=tratamiento;
         this.estadoDeSalud=estadoDeSalud;
         this.detallesConsulta=detallesConsulta;

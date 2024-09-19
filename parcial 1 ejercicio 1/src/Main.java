@@ -5,11 +5,11 @@ public class Main {
 
         Icon icon = new ImageIcon("src/img/vet.png");
 
-        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del animal:");
-        String dueno = JOptionPane.showInputDialog("Ingrese el nombre del dueño:");
-        int edad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del animal:"));
-        double peso = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el peso del animal:"));
-        String veterinario = JOptionPane.showInputDialog("Ingrese el nombre del veterinario:");
+        String nombre = validarCaracteres("Ingrese el nombre del animal:");
+        String dueno = validarCaracteres("Ingrese el nombre del dueño:");
+        int edad = validarNum("Ingrese la edad del animal:");
+        double peso = validarNum("Ingrese el peso del animal:");
+        String veterinario = validarCaracteres("Ingrese el nombre del veterinario:");
 
         //objeto
 
@@ -57,6 +57,35 @@ public class Main {
             }
         } while (opcion != 6);
     }
-
-
+    public static String validarCaracteres(String mensaje){
+        String palabra = "";
+        while (palabra.equals("")) {
+            palabra = JOptionPane.showInputDialog(mensaje);
+        }
+        return palabra;
     }
+    public static int validarNum(String mensaje){
+        boolean flag ;
+        String num ="" ;
+        do {
+            flag =true;
+            num = JOptionPane.showInputDialog(mensaje);
+            while (num.isEmpty()) {
+                num = JOptionPane.showInputDialog(mensaje);
+            }
+            for (int i = 0; i < num.length(); i++) {
+                if (!Character.isDigit(num.charAt(i))) {
+                    flag = false;
+                    break;
+                }
+            }
+        } while (!flag);
+
+        return Integer.parseInt(num);
+    }
+
+}
+
+
+
+
