@@ -151,13 +151,14 @@ public class Turno {
         }
     }
     public void programarTurno(){
+        Icon icon = new ImageIcon("src/img/turno.png");
         String[] opciones = {"Agendar de aca a 1 semana", "Agendar fecha personalizada", "Cancelar"};
         int opcion = JOptionPane.showOptionDialog(null,
                 "¿Para cuando queres agendar el turno?",
                 "Agendar Turno",
                 0,
                 0,
-                null,
+                icon,
                 opciones,
                 opciones[0]);
 
@@ -195,7 +196,7 @@ public class Turno {
             JOptionPane.showMessageDialog(null, "No hay un turno aun.");
         } else {
             if (LocalDate.now().isAfter(this.fechaTurno)) {
-                JOptionPane.showMessageDialog(null, "La fecha del turno ya pasó.");
+                JOptionPane.showMessageDialog(null, "La fecha del turno ya paso, eliga otra fecha");
             } else {
                 Period tiempoRestante = Period.between(LocalDate.now(), this.fechaTurno);
                 JOptionPane.showMessageDialog(null, "Faltan " + tiempoRestante.getDays() + " días para el turno.");
