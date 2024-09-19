@@ -38,10 +38,10 @@ public class Turno {
         this.peso = peso;
         this.dueno = dueno;
         this.veterinario = veterinario;
-        this.fechaTurno = null; // aca no sabia si ponerlo en null o dejarlo asi
-        this.tratamiento = false; // valor "preconsulta"
-        this.estadoDeSalud = true; // valor "preconsulta"
-        this.detallesConsulta="No asignado"; // valor "preconsulta"
+        this.fechaTurno = null;
+        this.tratamiento = false;
+        this.estadoDeSalud = true;
+        this.detallesConsulta="No asignado"; 
     }
 
     //get y set
