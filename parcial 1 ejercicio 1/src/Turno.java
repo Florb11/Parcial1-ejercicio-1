@@ -121,9 +121,9 @@ public class Turno {
     // metodo para evaluar la salud del animal
 
     public void realizarEvaluacion(){
-        JOptionPane.showMessageDialog(null, "Comenzando la consulta");
+        JOptionPane.showMessageDialog(null, "Comenzando la consulta...");
         int salud = JOptionPane.showConfirmDialog(null, "¿El animal esta en buen estado de salud?");
-        //aca no me salio lo de la  expresion ternaria
+
         if (salud == JOptionPane.YES_OPTION) {
             this.estadoDeSalud = true;
             this.tratamiento = false;
@@ -131,7 +131,7 @@ public class Turno {
         } else {
             this.estadoDeSalud = false;
             this.tratamiento = true;
-            JOptionPane.showMessageDialog(null, "El animal necesita tratamiento :(");
+            JOptionPane.showMessageDialog(null, "El animal necesita tratamiento :( ");
         }
         registrarDetallesConsulta();
         if (this.tratamiento) {

@@ -3,6 +3,8 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
 
+        Icon icon = new ImageIcon("src/img/vet.png");
+
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del animal:");
         String dueno = JOptionPane.showInputDialog("Ingrese el nombre del dueño:");
         int edad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del animal:"));
@@ -25,7 +27,7 @@ public class Main {
                     "Menu Veterinaria",
                     0,
                     0,
-                    null,
+                    icon,
                     opciones,
                     opciones [0]
             );
