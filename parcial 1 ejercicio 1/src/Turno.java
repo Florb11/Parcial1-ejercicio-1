@@ -71,11 +71,11 @@ public class Turno {
         return fechaTurno;
     }
 
-    public boolean isTratamiento() {
+    public boolean getTratamiento() {
         return tratamiento;
     }
 
-    public boolean isEstadoDeSalud() {
+    public boolean getEstadoDeSalud() {
         return estadoDeSalud;
     }
 
